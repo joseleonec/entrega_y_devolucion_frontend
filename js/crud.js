@@ -80,6 +80,7 @@ function deletePersona(id) {
         method: "DELETE"
     });
 }
+// CAPTURA DE EVENTOS
 $(document).ready(function() {
 
     var tablaPersonas = $('#tabla').DataTable({
