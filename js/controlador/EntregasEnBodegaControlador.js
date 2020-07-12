@@ -1,6 +1,6 @@
-const url = 'https://springtest999.herokuapp.com/api/parroquia';
+const url = 'https://springtest999.herokuapp.com/api/entregaenbodega';
 
-function addRow(datatable, parroquia) {
+function addRow(datatable, entregaEnBodega) {
     const span = document.createElement('span');
     span.className = 'table-remove';
     span.innerHTML = `
@@ -15,16 +15,18 @@ function addRow(datatable, parroquia) {
             </button>
         </span>
             `;
-    datatable.row.add([parroquia.idParroquia, parroquia.nombreParroquia, span]).draw();
+    datatable.row.add([entregaEnBodega.idEntregaBodega, entregaEnBodega.idUbicacion, entregaEnBodega.idDespachador,
+        entregaEnBodega.idFactura, entregaEnBodega.prioridad,
+        entregaEnBodega.estado, entregaEnBodega.pesoKg, span
+    ]).draw();
 }
 
-function llenarTablaParroquias(datatable) {
+function llenarTabla(datatable) {
     fetch(url).then(function(response) {
         return response.json();
     }).then(function(data) {
         data.forEach(i => {
             addRow(datatable, i);
-            // console.log(i.nombre);
         });
     }).catch(function() {
         console.log("Error al Llenar la tabla");
@@ -34,7 +36,7 @@ function llenarTablaParroquias(datatable) {
 
 $(document).ready(function() {
 
-    var datatable = $('#tablaParroquia').DataTable({
+    var datatable = $('#tablaEntregaEnBodega').DataTable({
         "columnDefs": [{
             "targets": -1,
             "data": null,
@@ -46,33 +48,44 @@ $(document).ready(function() {
                 <button name='delete' class="btn btn-danger btn-rounded btn-sm my-0" >
                     Eliminar
                 </button>`
-
         }]
     });
     // LLENAR TABLA
-    llenarTablaParroquias(datatable);
+    llenarTabla(datatable);
     // POST
-    $("#btn-guardar-parroquia").click(function() {
+    $("#btn-guardar-entrega-en-bodega").click(function() {
         // console.log("Evento capturado");
         const id = document.getElementById("labelid").value.toUpperCase();
-        const nombreParroquia = document.getElementById("labelnombreParroquia").value.toUpperCase();
+        const idUbicacion = document.getElementById("labelidUbicacion").value.toUpperCase();
+        const idDespachador = document.getElementById("labelidDespachador").value.toUpperCase();
+        const idFactura = document.getElementById("labelidFactura").value.toUpperCase();
+        const prioridad = document.getElementById("labelprioridad").value.toUpperCase();
+        const estado = document.getElementById("labelestado").value.toUpperCase();
+        const pesoKg = document.getElementById("labelpesoKg").value.toUpperCase();
         // Eliminamos el registro que indica que la tabla esta vacia
         // Input User Validation
-        if (id === '' || nombreParroquia === '') {
-            mostrarMensaje('Asegurese de llenar todos los campos', 'danger');
+        if (id === '' || idUbicacion === '' || idFactura === '' || idDespachador === '' || pesoKg === '') {
+            mostrarMensaje('Please Insert data in all fields', 'danger');
         } else {
             const data = {
-                "idEmpresa": id,
-                "nombreParroquia": nombreParroquia
+                "idEntregaBodega": id,
+                "idUbicacion": idUbicacion,
+                "idDespachador": idDespachador,
+                "idFactura": idFactura,
+                "prioridad": prioridad,
+                "estado": estado,
+                "pesoKg": pesoKg
             }
+
             if (document.getElementById("labelid").readOnly) {
+
                 PUT(url, data);
                 vaciarTabla(datatable);
-                llenarTablaParroquias(datatable);
+                llenarTabla(datatable);
+
             } else {
+
                 POST(url, data);
-                vaciarTabla(datatable)
-                llenarTablaParroquias(datatable);
                 addRow(datatable, data);
             }
             $('#exampleModal').modal('hide');
@@ -88,16 +101,26 @@ $(document).ready(function() {
         const columns = e.target.parentElement.parentElement.getElementsByTagName('td');
         const ID = columns[0].innerText;
         if (botonname === 'delete') {
+
             DELETE(url, ID);
             console.log(this);
             datatable.row(this).remove().draw();
             mostrarMensaje('Elemento eliminado ', 'info');
+
         } else if (botonname === 'edit') {
             // console.log(datos[1]);
+
             document.getElementById("labelid").readOnly = true;
             document.getElementById("labelid").value = columns[0].innerText;
-            document.getElementById("labelnombreParroquia").value = columns[1].innerText;
-            // Eliminamos el registro que indica que la tabla esta vacia
+
+            document.getElementById("labelidUbicacion").value = columns[1].innerText;
+            document.getElementById("labelidDespachador").value = columns[2].innerText;
+            document.getElementById("labelidFactura").value = columns[3].innerText;
+
+            document.getElementById("labelprioridad").value = columns[4].innerText;
+            document.getElementById("labelestado").value = columns[5].innerText;
+            document.getElementById("labelpesoKg").value = columns[6].innerText;
+
         }
     });
 });

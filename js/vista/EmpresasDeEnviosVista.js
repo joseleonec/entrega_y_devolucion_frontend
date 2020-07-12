@@ -1,3 +1,0 @@
-function llenarTablaEmpresas(datatable) {
-
-};

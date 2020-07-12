@@ -18,10 +18,6 @@ function addRow(datatable, empresa) {
     datatable.row.add([empresa.idEmpresa, empresa.razonSocial, empresa.costoKgExtra, empresa.pesoMaximoDelPaquete, span]).draw();
 }
 
-// function vaciarTabla(datatable) {
-//     datatable.clear().draw();
-// }
-
 function llenarTablaEmpresas(datatable) {
     fetch(url).then(function(response) {
         return response.json();
@@ -35,47 +31,6 @@ function llenarTablaEmpresas(datatable) {
     });
 }
 
-// function mostrarMensaje(mensaje, cssClass) {
-//     const div = document.createElement('div');
-//     div.className = `alert alert-${cssClass} mt-2`;
-//     div.appendChild(document.createTextNode(mensaje));
-//     const container = document.querySelector('.container-fluid');
-//     container.appendChild(div);
-//     setTimeout(function() {
-//         div.remove();
-//     }, 100);
-// }
-
-function POST(data) {
-    fetch(url, {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
-}
-
-function PUT(data) {
-    fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
-    document.getElementById("labelid").readOnly = false;
-}
-
-function DELETE(id) {
-    fetch(url + '/' + id, {
-        method: "DELETE"
-    });
-}
 
 $(document).ready(function() {
 
@@ -115,12 +70,12 @@ $(document).ready(function() {
                 "pesoMaximoDelPaquete": PesoMaximo
             }
             if (document.getElementById("labelid").readOnly) {
-                PUT(data);
+                PUT(url, data);
                 vaciarTabla(datatable);
                 llenarTablaEmpresas(datatable);
             } else {
 
-                POST(data);
+                POST(url, data);
                 addRow(datatable, data);
             }
             $('#exampleModal').modal('hide');
@@ -136,7 +91,7 @@ $(document).ready(function() {
         const columns = e.target.parentElement.parentElement.getElementsByTagName('td');
         const ID = columns[0].innerText;
         if (botonname === 'delete') {
-            DELETE(ID);
+            DELETE(url, ID);
             console.log(this);
             datatable.row(this).remove().draw();
             mostrarMensaje('Elemento eliminado ', 'info');

@@ -12,3 +12,35 @@ function mostrarMensaje(mensaje, cssClass) {
         div.remove();
     }, 100);
 }
+
+
+function POST(url, data) {
+    fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+}
+
+function PUT(url, data) {
+    fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+    document.getElementById("labelid").readOnly = false;
+}
+
+function DELETE(url, id) {
+    fetch(url + '/' + id, {
+        method: "DELETE"
+    });
+}
