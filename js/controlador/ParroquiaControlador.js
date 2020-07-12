@@ -1,4 +1,4 @@
-const url = 'https://springtest999.herokuapp.com/api/parroquia';
+const url = 'https://springtest999.herokuapp.com/api/parroquia/';
 
 function addRow(datatable, parroquia) {
     const span = document.createElement('span');

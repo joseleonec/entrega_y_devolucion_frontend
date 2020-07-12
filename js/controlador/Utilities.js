@@ -40,7 +40,7 @@ function PUT(url, data) {
 }
 
 function DELETE(url, id) {
-    fetch(url + '/' + id, {
+    fetch(url + id, {
         method: "DELETE"
     });
 }

@@ -1,4 +1,4 @@
-const url = 'https://springtest999.herokuapp.com/api/entregaenbodega';
+const url = 'https://springtest999.herokuapp.com/api/entregaenbodega/';
 
 function addRow(datatable, entregaEnBodega) {
     const span = document.createElement('span');

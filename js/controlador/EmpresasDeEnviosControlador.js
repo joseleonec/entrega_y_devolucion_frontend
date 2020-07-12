@@ -1,4 +1,4 @@
-const url = 'https://springtest999.herokuapp.com/api/empresa';
+const url = 'https://springtest999.herokuapp.com/api/empresa/';
 
 function addRow(datatable, empresa) {
     const span = document.createElement('span');
