@@ -1,6 +1,6 @@
-const url = 'https://springtest999.herokuapp.com/api/entregaenbodega';
+const url = 'https://springtest999.herokuapp.com/api/sustitucion/';
 
-function addRow(datatable, entregaEnBodega) {
+function addRow(datatable, sustitucion) {
     const span = document.createElement('span');
     span.className = 'table-remove';
     span.innerHTML = `
@@ -15,10 +15,7 @@ function addRow(datatable, entregaEnBodega) {
             </button>
         </span>
             `;
-    datatable.row.add([entregaEnBodega.idEntregaBodega, entregaEnBodega.idUbicacion, entregaEnBodega.idDespachador,
-        entregaEnBodega.idFactura, entregaEnBodega.prioridad,
-        entregaEnBodega.estado, entregaEnBodega.pesoKg, span
-    ]).draw();
+    datatable.row.add([sustitucion.idSustitucion, sustitucion.solicitudDevolucion.idSolicitud, sustitucion.idProductoSustituto, sustitucion.monto, span]).draw();
 }
 
 function llenarTabla(datatable) {
@@ -36,7 +33,7 @@ function llenarTabla(datatable) {
 
 $(document).ready(function() {
 
-    var datatable = $('#tablaEntregaEnBodega').DataTable({
+    var datatable = $('#tablaSustitucion').DataTable({
         "columnDefs": [{
             "targets": -1,
             "data": null,
@@ -53,39 +50,34 @@ $(document).ready(function() {
     // LLENAR TABLA
     llenarTabla(datatable);
     // POST
-    $("#btn-guardar-entrega-en-bodega").click(function() {
+    $("#btn-guardar-sustitucion").click(function() {
         // console.log("Evento capturado");
         const id = document.getElementById("labelid").value.toUpperCase();
-        const idUbicacion = document.getElementById("labelidUbicacion").value.toUpperCase();
-        const idDespachador = document.getElementById("labelidDespachador").value.toUpperCase();
-        const idFactura = document.getElementById("labelidFactura").value.toUpperCase();
-        var prioridad = document.getElementById("labelprioridad").value.toUpperCase();
-        const estado = document.getElementById("labelestado").value.toUpperCase();
-        const pesoKg = document.getElementById("labelpesoKg").value.toUpperCase();
+        const idSolicitud = document.getElementById("labelidSolicitud").value.toUpperCase();
+        const idProductoSustituto = document.getElementById("labelidProductoSustituto").value.toUpperCase();
+        const monto = document.getElementById("labelmonto").value.toUpperCase();
 
-        if (prioridad === "ALTA") {
-            prioridad = 3;
-        } else if (prioridad === "MEDIA") {
-            prioridad = 2;
-        } else if (prioridad === "BAJA") {
-            prioridad = 1;
-        }
+        var solicitudDevolucion;
+        fetch('https://springtest999.herokuapp.com/api/solicituddevolucion/' + idSolicitud).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            solicitudDevolucion = data;
+        }).catch(function() {
+            console.log("Error al recuperar registro compuesto");
+        });
 
         // Eliminamos el registro que indica que la tabla esta vacia
         // Input User Validation
-        if (id === '' || idUbicacion === '' || idFactura === '' || idDespachador === '' || pesoKg === '') {
+        if (id === '' || idSolicitud === '' || idProductoSustituto === '' || monto === '' || solicitudDevolucion == null) {
+
             mostrarMensaje('Please Insert data in all fields', 'danger');
         } else {
             const data = {
-                "idEntregaBodega": id,
-                "idUbicacion": idUbicacion,
-                "idDespachador": idDespachador,
-                "idFactura": idFactura,
-                "prioridad": prioridad,
-                "estado": estado,
-                "pesoKg": pesoKg
-            }
-
+                "idSustitucion": id,
+                "solicitudDevolucion": solicitudDevolucion,
+                "monto": monto,
+                "autorizacionSRI": idProductoSustituto
+            };
             if (document.getElementById("labelid").readOnly) {
 
                 PUT(url, data);
@@ -109,6 +101,7 @@ $(document).ready(function() {
         const botonname = e.target.name;
         const columns = e.target.parentElement.parentElement.getElementsByTagName('td');
         const ID = columns[0].innerText;
+
         if (botonname === 'delete') {
 
             DELETE(url, ID);
@@ -117,19 +110,15 @@ $(document).ready(function() {
             mostrarMensaje('Elemento eliminado ', 'info');
 
         } else if (botonname === 'edit') {
-            // console.log(datos[1]);
 
             document.getElementById("labelid").readOnly = true;
             document.getElementById("labelid").value = columns[0].innerText;
 
-            document.getElementById("labelidUbicacion").value = columns[1].innerText;
-            document.getElementById("labelidDespachador").value = columns[2].innerText;
-            document.getElementById("labelidFactura").value = columns[3].innerText;
-
-            document.getElementById("labelprioridad").value = columns[4].innerText;
-            document.getElementById("labelestado").value = columns[5].innerText;
-            document.getElementById("labelpesoKg").value = columns[6].innerText;
+            document.getElementById("labelidSolicitud").value = columns[1].innerText;
+            document.getElementById("labelidProductoSustituto").value = columns[2].innerText;
+            document.getElementById("labelmonto").value = columns[3].innerText;
 
         }
     });
+
 });

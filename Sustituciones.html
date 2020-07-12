@@ -89,94 +89,79 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid ">
-                    <h1 class="mt-4">Mis rutas</h1>
+                    <h1 class="mt-4">Registro de Solicitudes de devolución</h1>
                     <ul id="grupobotones" class="breadcrumb mb-4 ">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Agregar nueva Empresas de Envios
-                    </button>
+                            Registrar nueva Solicitud
+                        </button>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ingresa los datos de la ruta</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Ingresa los datos para la Solicitud
+                                        </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                     <div></div>
                                     <div class="modal-body">
                                         <form id="form-add-mi-ruta">
                                             <div class="form-group">
-                                                <label for="labelorigen">Origen</label>
-                                                <input type="text" class="form-control" id="labelorigen" placeholder="Ingrese el cantón Origen">
+                                                <label for="labelid">Identificador Sustitucion</label>
+                                                <!-- placeholder="Autogenerado" editable="false" -->
+                                                <input type="number" class="form-control" id="labelid">
                                             </div>
                                             <div class="form-group">
-                                                <label for="labeldestino">Origen</label>
-                                                <input type="text" class="form-control" id="labeldestino" placeholder="Ingrese el cantón Origen">
+                                                <label for="labelidSolicitud">Identificador Solicitud</label>
+                                                <input type="number" class="form-control" id="labelidSolicitud">
                                             </div>
                                             <div class="form-group">
-                                                <label for="labeldescripcion">Descripción</label>
-                                                <input type="text" class="form-control" id="labeldescripcion" placeholder="Ingrese la descripción">
+                                                <label for="labelidProductoSustituto">Autorización SRI</label>
+                                                <input type="number" class="form-control" id="labelidProductoSustituto">
                                             </div>
                                             <div class="form-group">
-                                                <label for="labelfecha">Fecha del último viaje</label>
-                                                <input type="date" class="form-control" id="labelfecha" placeholder="Enter email">
+                                                <label for="labelmonto">Monto($)</label>
+                                                <input type="number" class="form-control" id="labelmonto">
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button id="btnguardar" type="button" class="btn btn-primary">Guardar
-                                        cambios</button>
+                                    <div class="modal-footer ">
+                                        <button type="button " class="btn btn-secondary " data-dismiss="modal">Cancelar</button>
+                                        <button id="btn-guardar-sustitucion" type="button " class="btn btn-primary ">Guardar
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </ul>
                 </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="thead-dark">
+
+                <div class="card mb-4 ">
+                    <div class="card-body ">
+                        <div class="table-responsive ">
+                            <table class="table table-bordered " id="tablaSustitucion" width="100% " cellspacing="0 ">
+                                <thead class="thead-dark ">
                                     <tr>
-                                        <th>Origen</th>
-                                        <th>Destino</th>
-                                        <th>Descripción</th>
-                                        <!-- <th>Age</th> -->
-                                        <th>Último viaje</th>
+                                        <th>Identificador</th>
+                                        <th>id Solicitud</th>
+                                        <th>id Producto Sustituto</th>
+                                        <th>Monto($)</th>
                                         <th>--</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Origen</th>
-                                        <th>Destino</th>
-                                        <th>Descripción</th>
-                                        <!-- <th>Age</th> -->
-                                        <th>Último viaje</th>
-                                        <th>
-                                            --
-                                        </th>
+                                        <th>Identificador</th>
+                                        <th>id Solicitud</th>
+                                        <th>id Producto Sustituto</th>
+                                        <th>Monto($)</th>
+                                        <th>--</th>
                                     </tr>
                                 </tfoot>
-                                <tbody id="registrosRutas">
-                                    <!-- <tr>
-                                    <td>Guayaquil</td>
-                                    <td>Cuenca</td>
-                                    <td>Via El Cajas</td>
-                                    <td>2011/03/21</td>
-                                    <td>
-                                        <span class="table-remove">
-                                            <button name="delete" type="submit"
-                                                class="btn btn-danger btn-rounded btn-sm my-0">
-                                                Eliminar
-                                            </button>
-                                        </span>
-                                    </td>
-                                </tr>-->
+                                <tbody id="registrosRutas ">
                                 </tbody>
                             </table>
                         </div>
@@ -187,17 +172,18 @@
     </div>
 
 
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <!--sxripts locales para los Datatables de Jquery -->
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="assets/demo/datatables-demo.js"></script>
-    <script type="text/javascript" src="js/controlador/Utilities.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
 
+    <script type="text/javascript" src="js/controlador/Utilities.js"></script>
+    <script type="text/javascript" src="js/BarraLateral.js"></script>
+
+    <script type="text/javascript" src="js/controlador/SustitucionesControlador.js"></script>
 
 </body>
 

@@ -59,9 +59,17 @@ $(document).ready(function() {
         const idUbicacion = document.getElementById("labelidUbicacion").value.toUpperCase();
         const idDespachador = document.getElementById("labelidDespachador").value.toUpperCase();
         const idFactura = document.getElementById("labelidFactura").value.toUpperCase();
-        const prioridad = document.getElementById("labelprioridad").value.toUpperCase();
+        var prioridad = document.getElementById("labelprioridad").value.toUpperCase();
         const estado = document.getElementById("labelestado").value.toUpperCase();
         const pesoKg = document.getElementById("labelpesoKg").value.toUpperCase();
+        if (prioridad === "ALTA") {
+            prioridad = 3;
+        } else if (prioridad === "MEDIA") {
+            prioridad = 2;
+        } else if (prioridad === "BAJA") {
+            prioridad = 1;
+        }
+
         // Eliminamos el registro que indica que la tabla esta vacia
         // Input User Validation
         if (id === '' || idUbicacion === '' || idFactura === '' || idDespachador === '' || pesoKg === '') {
