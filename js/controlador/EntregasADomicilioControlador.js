@@ -15,7 +15,7 @@ function addRow(datatable, entregaADomicilio) {
             </button>
         </span>
             `;
-    datatable.row.add([entregaADomicilio.idEntregaDomicilio, entregaADomicilio.idUbicacion, entregaADomicilio.empresa,
+    datatable.row.add([entregaADomicilio.idEntregaDomicilio, entregaADomicilio.idUbicacion, entregaADomicilio.empresa.idEmpresa,
         entregaADomicilio.idFactura, entregaADomicilio.prioridad,
         entregaADomicilio.estado, entregaADomicilio.pesoKg, span
     ]).draw();
