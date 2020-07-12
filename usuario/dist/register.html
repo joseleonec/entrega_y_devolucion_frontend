@@ -1,0 +1,68 @@
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card card-signin flex-row my-5">
+                    <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Registrarse</h5>
+                        <form class="form-signin">
+                            <div class="form-label-group">
+                                <input type="text" name="firstname" id="inputUserame" class="form-control" placeholder="Nombre" required autofocus>
+                                <label for="inputUserame">Nombre</label>
+                            </div>
+                            <div class="form-label-group">
+                                <input type="text" name="lastname" id="inputLastname" class="form-control" placeholder="Apellidos" required="" autofocus="">
+                                <label for="inputLastname" onclick="document.getElementById('inputLastname').focus();">Apellidos</label>
+                            </div>
+                            <div class="form-label-group">
+                                <input type="text" id="inputDni" class="form-control" placeholder="Cédula" required="" autofocus="">
+                                <label for="inputDni" onclick="document.getElementById('inputDni').focus();">
+                                    Cédula</label>
+                            </div>
+                            <div class="form-label-group">
+                                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                                <label for="inputEmail">Correo electrónico</label>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                                <label for="inputPassword">Contraseña</label>
+                            </div>
+
+                            <div class="form-label-group">
+                                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+                                <label for="inputConfirmPassword">Confirmar contraseña</label>
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Registrarme</button>
+                            <!-- <hr class="my-4"> -->
+                            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
+                                    class="fab  mr-2"></i> Registrarse con Google</button>
+                            <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i
+                                    class="fab  mr-2"></i> Registrarse con Facebook</button>
+                            <br>
+                            <a class="d-block text-center mt-2 " href="login.html">Ya tengo una cuenta</a>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
