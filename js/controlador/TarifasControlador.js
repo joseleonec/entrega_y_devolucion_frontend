@@ -1,6 +1,6 @@
-const url = 'https://springtest999.herokuapp.com/api/sustitucion/';
+const url = 'https://springtest999.herokuapp.com/api/tarifa/';
 
-function addRow(datatable, sustitucion) {
+function addRow(datatable, tarifa) {
     const span = document.createElement('span');
     span.className = 'table-remove';
     span.innerHTML = `
@@ -15,7 +15,7 @@ function addRow(datatable, sustitucion) {
             </button>
         </span>
             `;
-    datatable.row.add([sustitucion.idSustitucion, sustitucion.solicitudDevolucion.idSolicitud, sustitucion.idProductoSustituto, sustitucion.monto, span]).draw();
+    datatable.row.add([tarifa.idTarifa, tarifa.costo, tarifa.minutosEstimados, tarifa.parroquia.idParroquia, tarifa.empresa.idEmpresa, span]).draw();
 }
 
 function llenarTabla(datatable) {
@@ -33,7 +33,7 @@ function llenarTabla(datatable) {
 
 $(document).ready(function() {
 
-    var datatable = $('#tablaSustitucion').DataTable({
+    var datatable = $('#tablaTarifa').DataTable({
         "columnDefs": [{
             "targets": -1,
             "data": null,
@@ -50,33 +50,42 @@ $(document).ready(function() {
     // LLENAR TABLA
     llenarTabla(datatable);
     // POST
-    $("#btn-guardar-sustitucion").click(function() {
+    $("#btn-guardar-tarifa").click(function() {
         // console.log("Evento capturado");
         const id = document.getElementById("labelid").value.toUpperCase();
-        const idSolicitud = document.getElementById("labelidSolicitud").value.toUpperCase();
-        const idProductoSustituto = document.getElementById("labelidProductoSustituto").value.toUpperCase();
-        const monto = document.getElementById("labelmonto").value.toUpperCase();
+        const costo = document.getElementById("labelcosto").value.toUpperCase();
+        const minutosEstimados = document.getElementById("labelminutosEstimados").value.toUpperCase();
+        const idParroquia = document.getElementById("labelidParroquia").value.toUpperCase();
+        const idEmpresa = document.getElementById("labelidEmpresa").value.toUpperCase();
 
-        var solicitudDevolucion;
-        fetch('https://springtest999.herokuapp.com/api/solicituddevolucion/' + idSolicitud).then(function(response) {
+        var parroquia;
+        fetch('https://springtest999.herokuapp.com/api/parroquia/' + idParroquia).then(function(response) {
             return response.json();
         }).then(function(data) {
-            solicitudDevolucion = data;
+            parroquia = data;
         }).catch(function() {
             console.log("Error al recuperar registro compuesto");
         });
 
+        var empresa;
+        fetch('https://springtest999.herokuapp.com/api/empresa/' + idEmpresa).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            empresa = data;
+        }).catch(function() {
+            console.log("Error al recuperar registro compuesto");
+        });
         // Eliminamos el registro que indica que la tabla esta vacia
         // Input User Validation
-        if (id === '' || idSolicitud === '' || idProductoSustituto === '' || monto === '' || solicitudDevolucion == null) {
-
+        if (id === '' || minutosEstimados === '' || idParroquia === '' || costo === '' || idEmpresa == '' || parroquia == null || empresa == null) {
             mostrarMensaje('Please Insert data in all fields', 'danger');
         } else {
             const data = {
-                "idSustitucion": id,
-                "solicitudDevolucion": solicitudDevolucion,
-                "monto": monto,
-                "autorizacionSRI": idProductoSustituto
+                "idTarifa": id,
+                "costo": costo,
+                "minutosEstimados": minutosEstimados,
+                "parroquia": parroquia,
+                "parroquia": empresa
             };
             if (document.getElementById("labelid").readOnly) {
 
@@ -114,9 +123,10 @@ $(document).ready(function() {
             document.getElementById("labelid").readOnly = true;
             document.getElementById("labelid").value = columns[0].innerText;
 
-            document.getElementById("labelidSolicitud").value = columns[1].innerText;
-            document.getElementById("labelidProductoSustituto").value = columns[2].innerText;
-            document.getElementById("labelmonto").value = columns[3].innerText;
+            document.getElementById("labelcosto").value = columns[1].innerText;
+            document.getElementById("labelminutosEstimados").value = columns[2].innerText;
+            document.getElementById("labelidParroquia").value = columns[3].innerText;
+            document.getElementById("labelidEmpresa").value = columns[4].innerText;
 
         }
     });
