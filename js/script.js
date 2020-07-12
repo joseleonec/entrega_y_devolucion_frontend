@@ -97,43 +97,7 @@ $(document).ready(function() {
 
     });
     $('#exampleModal').on('hidden.bs.modal', function() {
-        $(this).find('form')[0].reset();
+        $(this).find('form')[
+            0].reset();
     });
-
-
 });
-// console.log("data");
-// const url = 'http://localhost:9099//api/persona';
-// fetch(url).then(function(response) {
-//     return response.json();
-// }).then(function(data) {
-//     console.log(data);
-// }).catch(function() {
-//     console.log("Booo");
-// });
-// var request = new Request('http://localhost:9099//api/persona');
-
-// fetch(request).then(function(response) {
-//     // Convert to JSON
-//     return response.json();
-// }).then(function(j) {
-//     // Yay, `j` is a JavaScript object
-//     console.log(JSON.stringify(j));
-//     console.log("Hello world");
-// }).catch(function(error) {
-//     console.log('Request failed', error)
-// });
-
-// $("button").click(function() {
-//     $.get("demo_test.asp", function(data, status) {
-//         alert("Data: " + data + "\nStatus: " + status);
-//     });
-// });
-
-// fetch('http://localhost:9099//api/persona')
-//     .then(function(response) {
-//         return response.json();
-//     })
-//     .then(function(myJson) {
-//         console.log(myJson);
-//     });

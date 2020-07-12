@@ -32,5 +32,6 @@ $(document).ready(function() {
     var dataTableViajes = $('#dataTableViajes').DataTable();
     var dataTableSalidas = $('#dataTableSalidas').DataTable();
     var dataTableReservas = $('#dataTableReservas').DataTable();
-
+    var dataTableReservas = $('#tableEmpresas').DataTable();
+    tableEmpresas
 });
