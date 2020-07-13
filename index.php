@@ -1,1 +1,1 @@
-<?php require_once("Parroquias.html") ?> 
+<?php require_once("index.html") ?> 
